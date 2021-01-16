@@ -16,8 +16,10 @@ category_fpath = "data/raw/category.pkl"
 mls = MerlibSpider()
 #cat = mls.get_categories()
 mls.load_categories(category_fpath)
-cat = mls.categories
-mls.extract_items_info(all_keys=True)
+keys = ["MPE1246"]
+data = mls.extract_items_info(keys=keys, all_keys=False)
+
+
 """
 i`f __name__ == "__main__":
     

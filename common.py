@@ -36,7 +36,7 @@ def get_next_page(src_url):
   curr_url = src_url
   next_url = ""
   
-  while curr_url:
+  while curr_url and (curr_url != next_url):
     page = get_page(curr_url)
     next_url = get_next_url(page)
     yield page

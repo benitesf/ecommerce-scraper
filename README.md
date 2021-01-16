@@ -39,15 +39,3 @@ Extract information from mercado libre web pages with the purpose of getting ins
 3. Iterate over pages to get all postings.
 4. Iterate over posts to extract the info.
 5. Save information.
-
-## Database schema
-We consider 2 tables *Province* and *Mode*.
-The table mode is a generalization from different tables:
-- sale
-- rental
-- temporal
-- project
-	- pre-sale-plan
-	- pre-sale-building
-	- pre-sale-premiere
-
