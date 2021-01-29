@@ -18,15 +18,15 @@ def get_n_pages(src_url, number):
   Returns n pages from url
   """
   curr_url = src_url
-  next_url = ""
+  prev_url = ""
   n = 0
 
-  while curr_url and n < number:
+  while (curr_url is not None) and (curr_url != prev_url) and (n < number):
     page = get_page(curr_url)
-    next_url = get_next_url(page) 
     yield page
 		
-    curr_url = next_url
+    prev_url = curr_url
+    curr_url = get_next_url(page) 
     n += 1
 
 def get_next_page(src_url):
@@ -34,14 +34,14 @@ def get_next_page(src_url):
   Returns the next page if exists
   """
   curr_url = src_url
-  next_url = ""
+  prev_url = ""
   
-  while curr_url and (curr_url != next_url):
+  while curr_url is not None and (curr_url != prev_url):
     page = get_page(curr_url)
-    next_url = get_next_url(page)
     yield page
-		
-    curr_url = next_url
+
+    prev_url = curr_url
+    curr_url = get_next_url(page)
 
 def get_next_url(page):
   """
