@@ -59,7 +59,7 @@ class MerlibSpider:
         
         url = self.url["category"]
         page = common.get_page(url)
-        common.sleep_random_between(2, 5)
+        common.sleep_random_between(1, 2)
         
         cat_container = page.find_all("div", class_="categories__container")
         
@@ -93,7 +93,7 @@ class MerlibSpider:
     
     def get_sub_cats(self, url):
         page = common.get_page(url)
-        common.sleep_random_between(2, 5)
+        common.sleep_random_between(1, 2)
         cat = {}
         
         for child in page.find_all("div", class_="desktop__view-child"):
@@ -129,7 +129,7 @@ class MerlibSpider:
         
         return cat
     
-    def extract_items_info(self, keys=[], all_keys=False):
+    def extract_items_info(self, fp, keys=[], all_keys=False):
         """
         Extract items info from category dictionary
         
@@ -158,7 +158,7 @@ class MerlibSpider:
                     if k in self.categories:
                         cat[k] = self.categories[k]
                     
-        self.iterate_categories(cat)
+        self.iterate_categories(cat, fp)
         
                 
     def iterate_categories(self, categories, fp):
@@ -181,7 +181,7 @@ class MerlibSpider:
                 for kkk in items:
                     item_cat = items[kkk]
                     logging.info('\t\tItem Category: {}'.format(item_cat["name"]))
-                    for page_item_list in common.get_n_pages(item_cat["link"], 2):
+                    for page_item_list in common.get_n_pages(item_cat["link"], 10):
                         logging.info("\t\t\tPage item list...")
                         for post in page_item_list.findAll("li", class_="ui-search-layout__item"):
                             try:
@@ -193,7 +193,6 @@ class MerlibSpider:
                             except Exception as e:
                                 logging.error("While extracting post info", exc_info=True)
             logging.info("------------------------------------------------")
-        return data
                     
     def extract_posts_info(self, post):
         """
@@ -201,7 +200,7 @@ class MerlibSpider:
         """
         item_link = post.a["href"]
         page = common.get_page(item_link)
-        common.sleep_random_between(2, 5)
+        common.sleep_random_between(1, 2)
 
         # Get script
         script = page.find_all("script")
